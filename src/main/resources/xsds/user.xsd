@@ -1,0 +1,108 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.soap/user-ws"
+           targetNamespace="http://www.soap/user-ws" elementFormDefault="qualified">
+
+    <xs:element name="getUserByLoginRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="login" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="getUserByLoginResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="userRolesInfo" type="tns:userRolesInfo"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:complexType name="roleInfo">
+        <xs:sequence>
+            <xs:element name="roleId" type="xs:long"/>
+            <xs:element name="name">
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:enumeration value="Admin"/>
+                    <xs:enumeration value="Operator"/>
+                    <xs:enumeration value="Analyst"/>
+                    <xs:enumeration value="Moderator"/>
+                    <xs:enumeration value="Editor"/>
+                </xs:restriction>
+            </xs:simpleType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="userInfo">
+        <xs:sequence>
+            <xs:element name="login" type="xs:string"/>
+            <xs:element name="name" type="xs:string"/>
+            <xs:element name="password" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="userRolesInfo">
+        <xs:sequence>
+            <xs:element name="name" type="xs:string"/>
+            <xs:element name="login" type="xs:string"/>
+            <xs:element name="password" type="xs:string"/>
+            <xs:element name="roles" type="tns:roleInfo" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:element name="getAllUsersRequest">
+        <xs:complexType/>
+    </xs:element>
+    <xs:element name="getAllUsersResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="userInfo" type="tns:userInfo" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:complexType name="serviceStatus">
+        <xs:sequence>
+            <xs:element name="statusCode" type="xs:string"/>
+            <xs:element name="message" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:element name="addUserRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="userRolesInfo" type="tns:userRolesInfo"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="addUserResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="serviceStatus" type="tns:serviceStatus"/>
+                <xs:element name="userRolesInfo" type="tns:userRolesInfo"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="updateUserRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="userRolesInfo" type="tns:userRolesInfo"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="updateUserResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="serviceStatus" type="tns:serviceStatus"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="deleteUserRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="login" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="deleteUserResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="serviceStatus" type="tns:serviceStatus"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>
